@@ -7,16 +7,20 @@
     <tr>
       <th>Title</th>
       <th>Content</th>
+      <th>Deadline</th>
       <th colspan="3"></th>
     </tr>
+    <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "test" %>
   </thead>
 
   <tbody>
     <div >
+
       <% @tasks.each do |task| %>
         <tr>
           <td class="rspec_order_test"><%= task.title  %></td>
-          <td><%= task.content %></td>
+          <td class="rspec_sort_test"><%= task.content %></td>
+          <td><%= task.deadline %></td>
           <td><%= link_to 'Show', task %></td>
           <td><%= link_to 'Edit', edit_task_path(task) %></td>
           <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>

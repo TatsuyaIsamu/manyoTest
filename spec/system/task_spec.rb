@@ -19,13 +19,24 @@ RSpec.describe 'タスク管理機能', type: :system do
         it '新しいタスクが一番上に表示される' do
           # ここに実装する
           visit tasks_path
-          binding.irb
           post_all = all(".rspec_order_test")
           expect(post_all[0].text).to have_content("task")
         end
       end
   end
 
+  describe "ソート機能" do
+    context "終了期限でソートするを押した場合" do
+      it "期限が近い順に表示される" do
+        task = FactoryBot.create(:task, content: "success", deadline: Date.today )
+        visit tasks_path
+        click_link "終了期限でソートする"
+        post_all = all(".rspec_sort_test")
+        expect(post_all[0].text).to have_content("test_content")
+      end
+    end
+  end
+    
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
