@@ -26,6 +26,12 @@
       <%= form.text_field :deadline %>
   </div>
 
+
+  <div class="field">
+      <%= form.label :status %>
+      <%= form.select :status, [["未実施", "未実施"], ["実施中", "実施中"], ["実施後", "実施後"]] ,include_blank: "選択して下さい" %>
+  </div>
+
   <div class="actions">
     <%= form.submit "submit" %>
   </div>
