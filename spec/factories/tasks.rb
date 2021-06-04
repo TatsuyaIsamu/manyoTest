@@ -4,5 +4,9 @@ FactoryBot.define do
     title { 'test_title' }
     content { 'test_content' }
     deadline { Date.today-1 }
+    status { "未実施" }
   end
+
+ 
+
 end
