@@ -32,6 +32,12 @@
       <%= form.select :status, [["未実施", "未実施"], ["実施中", "実施中"], ["実施後", "実施後"]] ,include_blank: "選択して下さい" %>
   </div>
 
+  
+   <div class="field">
+      <%= form.label :priority %>
+      <%= form.select :priority, [[:低, :低], [:中, :中], [:高, :高]] ,include_blank: "選択して下さい"  %>
+  </div>
+
   <div class="actions">
     <%= form.submit "submit" %>
   </div>

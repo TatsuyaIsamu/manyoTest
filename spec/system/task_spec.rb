@@ -40,6 +40,19 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(post_all[0].text).to have_content("test_content")
       end
     end
+    context "優先順位でソートするを押した場合" do
+      it "優先順の高い順に表示される" do
+        FactoryBot.create(:task, content: "success1", priority: :高 )
+        FactoryBot.create(:task, content: "success2", priority: :中 )
+        FactoryBot.create(:task, content: "success3", priority: :低 )
+        visit tasks_path
+        click_link "優先順位でソートする"
+        post_all = all(".rspec_sort_test")
+        expect(post_all[0].text).to have_content("success1")
+        expect(post_all[1].text).to have_content("success2")
+        expect(post_all[2].text).to have_content("success3")
+      end
+    end
   end
     
   describe '一覧表示機能' do
