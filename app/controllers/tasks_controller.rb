@@ -6,28 +6,28 @@ class TasksController < ApplicationController
     if params[:task].present?
       if params[:task][:status].present? || params[:task][:search].present?
         if params[:task][:status].present? && params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search]).statusing(params[:task][:status])
+          @tasks = Task.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:status].present?
-          @tasks = Task.statusing(params[:task][:status])
+          @tasks = Task.statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search])
+          @tasks = Task.searching(params[:task][:search]).page(params[:page]).per(10)
         end
       else
         if params[:sort_expired]
-          @tasks = Task.all.order(deadline: :asc)   
+          @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
         elsif params[:priority_expired]
-          @tasks = Task.all.order(priority: :asc)
+          @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
         else
-          @tasks = Task.all.order(created_at: :desc)
+          @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
         end
       end
     else
       if params[:sort_expired]
-        @tasks = Task.all.order(deadline: :asc)   
+        @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
       elsif params[:priority_expired]
-        @tasks = Task.all.order(priority: :asc)
+        @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
       else
-        @tasks = Task.all.order(created_at: :desc)
+        @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
       end
     end
   end
@@ -92,4 +92,6 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :content, :deadline, :status, :search, :priority)
     end
+
+    
 end

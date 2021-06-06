@@ -11,34 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="form-group pt-4 pt-3">
+    <%= form.text_field :title, placeholder: "write title space" ,class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+  <div class="form-group">
+    <%= form.text_area :content, placeholder: "write content space", class: "form-control", rows: 7  %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
       <%= form.label :deadline %>
-      <%= form.text_field :deadline %>
-  </div>
-
-
-  <div class="field">
+      <%= form.date_field :deadline %>
       <%= form.label :status %>
-      <%= form.select :status, [["未実施", "未実施"], ["実施中", "実施中"], ["実施後", "実施後"]] ,include_blank: "選択して下さい" %>
+      <%= form.select :status, [["未実施", "未実施"], ["実施中", "実施中"], ["実施後", "実施後"]] ,include_blank: "選択して下さい"%>
+      <%= form.label :priority%>
+      <%= form.select :priority, [[:低, :低], [:中, :中], [:高, :高]] ,include_blank: "選択して下さい"%>
   </div>
 
-  
-   <div class="field">
-      <%= form.label :priority %>
-      <%= form.select :priority, [[:低, :低], [:中, :中], [:高, :高]] ,include_blank: "選択して下さい"  %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit "submit" %>
+  <div class="text-center">
+    <%= form.submit "submit", class: "btn btn-primary" %>
   </div>
 <% end %>

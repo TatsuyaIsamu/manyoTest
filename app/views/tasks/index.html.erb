@@ -1,26 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1 class="top_tasks">Tasks</h1>
 <%= form_with(model: @tasks, url: tasks_path , local: true, method: :get) do |f| %>
   <%= f.label :status %>
   <%= f.select :status, [["未実施", "未実施"], ["実施中", "実施中"], ["実施後", "実施後"]] ,include_blank: "選択して下さい" %>
-  <%= f.label :search, "search"%>
+  <%= f.label :search, "search", class: "search_label"%>
   <%= f.text_field :search %>
   <%= f.submit "search" %>
 <% end %>
-
-<table>
+<%= link_to new_task_path do %><span class="label label-default">Weite New Task</span><% end %> 
+<table class="table table-striped" >
   <thead>
     <tr>
-      <th>Title</th>
+      <th >Title</th>
       <th>Content</th>
       <th>Status</th>
-      <th>Deadline</th>
-      <th>Priority</th>
+      <th class="rspec_deadline_test"v><%= link_to tasks_path(sort_expired: "true") do %>Deadline<span class="glyphicon glyphicon-triangle-bottom"></span><% end %></th>
+      <th class="rspec_priority_test"><%= link_to tasks_path(priority_expired: "true") do %>Priority<span class="glyphicon glyphicon-triangle-bottom"></span><% end %></th>
       <th colspan="3"></th>
     </tr>
-    <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
-    <%= link_to "優先順位でソートする", tasks_path(priority_expired: "true") %>
   </thead>
 
   <tbody>
@@ -28,20 +26,21 @@
 
       <% @tasks.each do |task| %>
         <tr>
-          <td class="rspec_order_test"><%= task.title  %></td>
-          <td class="rspec_sort_test"><%= task.content %></td>
-          <td class="rspec_search_test"><%= task.status %></td>
-          <td><%= task.deadline %></td>
-          <td><%= task.priority %></td>
-          <td><%= link_to 'Show', task %></td>
-          <td><%= link_to 'Edit', edit_task_path(task) %></td>
-          <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class="rspec_order_test col-lg-2"><%= task.title  %></td>
+          <td class="rspec_sort_test col-lg-3"><%= task.content %></td>
+          <td class="rspec_search_test col-lg-1"><%= task.status %></td>
+          <td class="col-lg-2 "><%= task.deadline %></td>
+          <td class="col-lg-1"><%= task.priority %></td>
+          <td class= "col-lg-1"><span class="label label-info" ><%= link_to 'Show', task %></span></td>
+          <td class= "col-lg-1"><span class="label label-success"><%= link_to 'Edit', edit_task_path(task) %></span></td>
+          <td class= "col-lg-1"><span class="label label-danger"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></span></td>
         </tr>
       <% end %>
+      <%= paginate @tasks %>
     </div>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+

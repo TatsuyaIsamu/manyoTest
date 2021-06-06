@@ -10,12 +10,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in "task[title]", with: "test_title"
         fill_in "task[content]", with: "test_content"
-        fill_in "task[deadline]", with: "1111-11-11"
+        fill_in "task[deadline]", with: "002019-11-11"
         select "実施中", from: "task[status]"
         click_on "submit"
         expect(page).to have_content "test_title"
         expect(page).to have_content "test_content"
-        expect(page).to have_content "1111-11-11"
+        expect(page).to have_content "2019-11-11"
         expect(page).to have_content "実施中"
       end
     end
@@ -35,7 +35,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       it "期限が近い順に表示される" do
         task = FactoryBot.create(:task, content: "success", deadline: Date.today )
         visit tasks_path
-        click_link "終了期限でソートする"
+       
+        click_on find(".rspec_deadline_test").text
+        
         post_all = all(".rspec_sort_test")
         expect(post_all[0].text).to have_content("test_content")
       end
@@ -46,7 +48,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task, content: "success2", priority: :中 )
         FactoryBot.create(:task, content: "success3", priority: :低 )
         visit tasks_path
-        click_link "優先順位でソートする"
+        click_on find(".rspec_priority_test").text
         post_all = all(".rspec_sort_test")
         expect(post_all[0].text).to have_content("success1")
         expect(post_all[1].text).to have_content("success2")
