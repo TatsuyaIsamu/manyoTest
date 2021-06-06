@@ -1,0 +1,53 @@
+html {
+  position:relative;
+
+}
+
+body {
+  text-align: center;
+  font-size: 20px;
+}
+
+
+.index_table {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+th {
+  text-align: center;
+  font-size: 20px;
+}
+
+
+td {
+  font-size: 20px;
+}
+
+.label {
+  display: inline-block;
+  height:40px;
+  font-size: 20px;
+  padding-top: 10px;
+  margin: 35px 0 30px 0;
+}
+.search_label {
+  margin-left: 20px;
+}
+
+.top_tasks {
+
+  margin: 50px 0 40px 0;
+}
+
+.form-control {
+  display: inline-block;
+  width: 60%;
+}
+
+.show_table {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 100px;
+}
