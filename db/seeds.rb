@@ -10,3 +10,6 @@ User.create(name: "tatsuya",
             email: "ado@gmail.com",
             password: "11111"
 )
+2100.times do
+  Task.create(title:"aaa" ,content: "MIMI", user_id: 21)
+end
