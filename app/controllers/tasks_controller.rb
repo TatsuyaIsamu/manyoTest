@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-
+  before_action :login_required
   # GET /tasks or /tasks.json
   def index
     if params[:task].present?
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
       elsif params[:priority_expired]
         @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
       else
-        @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(created_at: :desc)
       end
     end
   end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     respond_to do |format|
       if @task.save

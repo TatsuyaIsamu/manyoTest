@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-
+  before_action :forbid_login_user, only: %i[ new create ]
+  before_action :login_required, only: %i[ show edit update destroy]
 
   # GET /users/1 or /users/1.json
   def show
@@ -21,7 +22,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
+        session[:user_id] = @user.id
+        format.html { redirect_to tasks_path, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
