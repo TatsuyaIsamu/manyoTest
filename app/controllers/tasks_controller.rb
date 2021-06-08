@@ -6,26 +6,26 @@ class TasksController < ApplicationController
     if params[:task].present?
       if params[:task][:status].present? || params[:task][:search].present?
         if params[:task][:status].present? && params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:status].present?
-          @tasks = Task.statusing(params[:task][:status]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.searching(params[:task][:search]).page(params[:page]).per(10)
         end
       else
         if params[:sort_expired]
-          @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(deadline: :asc)
         elsif params[:priority_expired]
-          @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(priority: :asc)
         else
-          @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(created_at: :desc)
         end
       end
     else
       if params[:sort_expired]
-        @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(deadline: :asc)
       elsif params[:priority_expired]
-        @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(priority: :asc)
       else
         @tasks = current_user.tasks.page(params[:page]).per(10).order(created_at: :desc)
       end

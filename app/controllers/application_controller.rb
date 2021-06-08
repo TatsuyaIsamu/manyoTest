@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
     redirect_to tasks_path if current_user
   end 
 
+  def forbid_other_user(user)
+    if current_user != user
+      redirect_to tasks_path, notice: "権限がありません"
+    end
+  end
+
   def admin_role_required
     if logged_in?
       unless current_user.admin_role
