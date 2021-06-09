@@ -61,7 +61,7 @@ RSpec.describe '管理画面のテスト' do
   end
   describe '管理ユーザの権限のテスト' do
     before do
-      @user = FactoryBot.create(:user, admin_role: true)
+      @user = FactoryBot.create(:user, admin_role: true, email: "test")
       visit new_session_path
       fill_in "session[name]", with: @user.name
       fill_in "session[email]", with: @user.email
