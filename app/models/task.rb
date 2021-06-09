@@ -5,4 +5,7 @@ class Task < ApplicationRecord
   scope :searching, -> (params) {where("content LIKE ? or title LIKE ?", "%#{params}%", "%#{params}%")}
   scope :statusing, -> (params) {where(status: params)}
   belongs_to :user
+
+  has_many :combinations, dependent: :destroy
+  has_many :combination_labels, through: :combinations, source: :lebel
 end
