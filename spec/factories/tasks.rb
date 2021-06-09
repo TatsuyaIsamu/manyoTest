@@ -5,6 +5,8 @@ FactoryBot.define do
     content { 'test_content' }
     deadline { Date.today-1 }
     status { "未実施" }
+    priority { 1 }
+    association :user
   end
 
  

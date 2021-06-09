@@ -1,0 +1,7 @@
+
+<%= @user.name %>
+<%= @user.email %>
+<% unless @user.admin_role %>
+ <%= link_to 'Edit', edit_user_path(@user) %> 
+<% end %>
+

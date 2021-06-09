@@ -1,33 +1,33 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-
+  before_action :login_required
   # GET /tasks or /tasks.json
   def index
     if params[:task].present?
       if params[:task][:status].present? || params[:task][:search].present?
         if params[:task][:status].present? && params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:status].present?
-          @tasks = Task.statusing(params[:task][:status]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:search].present?
-          @tasks = Task.searching(params[:task][:search]).page(params[:page]).per(10)
+          @tasks = current_user.tasks.searching(params[:task][:search]).page(params[:page]).per(10)
         end
       else
         if params[:sort_expired]
-          @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(deadline: :asc)
         elsif params[:priority_expired]
-          @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(priority: :asc)
         else
-          @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
+          @tasks = current_user.tasks.page(params[:page]).per(10).order(created_at: :desc)
         end
       end
     else
       if params[:sort_expired]
-        @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(deadline: :asc)
       elsif params[:priority_expired]
-        @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(priority: :asc)
       else
-        @tasks = Task.page(params[:page]).per(10).order(created_at: :desc)
+        @tasks = current_user.tasks.page(params[:page]).per(10).order(created_at: :desc)
       end
     end
   end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     respond_to do |format|
       if @task.save
