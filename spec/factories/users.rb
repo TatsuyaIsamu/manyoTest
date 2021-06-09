@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    name { "MyText" }
-    email { "MyText" }
-    password { "MyText" }
- 
+    name { "botText" }
+    email { "botText" }
+    password { "botText" }
+    admin_role { "false"}
   end
 end

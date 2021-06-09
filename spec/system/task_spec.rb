@@ -3,7 +3,6 @@ RSpec.describe 'タスク管理機能', type: :system do
   before do
     @user = FactoryBot.create(:user)
     FactoryBot.create(:task, title: "task", user_id: @user.id, priority: :低)
-
     visit new_session_path
     fill_in "session[name]", with: @user.name
     fill_in "session[email]", with: @user.email

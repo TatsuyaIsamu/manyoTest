@@ -20,7 +20,7 @@
           <td><%= admin.tasks.count %></td>
           <td><%= link_to 'Show', admin_user_path(admin.id) %></td>
           <td><%= link_to 'Edit', edit_admin_user_path(admin.id) %></td>
-          <td><%= link_to 'Destroy', admin_user_path(admin.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', admin_user_path(admin.id), method: :delete, data: { confirm: 'Are you sure?' }, id: "rspec_test#{admin.id}" %></td>
       </tr>
     </tbody>
   </table>
