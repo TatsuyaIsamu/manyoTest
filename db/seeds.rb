@@ -14,4 +14,8 @@
 #   Task.create(title:"aaa" ,content: "MIMI", user_id: 21)
 # end
 
-User.create(name: "adm", email: "xxx", password: "xxx", admin_role: true)
+# User.create(name: "adm", email: "xxx", password: "xxx", admin_role: true)
+
+for number in 1..10 do
+  Label.create(label_name: "#{number}")
+end

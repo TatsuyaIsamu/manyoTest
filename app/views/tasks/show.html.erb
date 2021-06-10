@@ -47,6 +47,18 @@
       <%= @task.priority %>
     </td>
   </tr>
+ <% if @task.labels.present? %>
+  <tr>
+    <td>
+      <strong>Label:</strong>
+    </td>
+    <td>
+      <% @task.labels.each do |lebel| %>
+        <%= lebel.label_name %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
 </table>
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

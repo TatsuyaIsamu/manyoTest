@@ -39,6 +39,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+   
   end
 
   # GET /tasks/1/edit
@@ -48,9 +49,8 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = current_user.tasks.build(task_params)
-
     respond_to do |format|
-      if @task.save
+      if @task.save       
         format.html { redirect_to @task, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
@@ -90,8 +90,12 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content, :deadline, :status, :search, :priority)
+      params.require(:task).permit(:title, :content, :deadline, :status, :search, :priority, {label_ids:[]})
     end
+    # def lab_params
+    #   params.require(:task).permit()
+    # end
+    
 
     
 end
