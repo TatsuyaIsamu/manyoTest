@@ -29,10 +29,14 @@
   </div>
   <div class="form-group">
     <%= form.label :label_name %>
-    <% Label.all.each do |label| %>
+    <% Label.where(user_id: current_user.id).each do |label| %>
       <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
       <%= label.label_name %>
     <% end %>
+  </div>
+  <div class="form-group">
+    <%= link_to "新しくラベルを作成する", new_label_path %>
+    
   </div>
 
   <div class="text-center">

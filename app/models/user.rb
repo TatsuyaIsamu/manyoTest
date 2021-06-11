@@ -4,7 +4,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   before_destroy :admin_role_validation_destroy
   after_update :admin_role_validation_update
-
+  has_many :labels, dependent: :destroy
+  accepts_nested_attributes_for :labels
   def admin_role_validation_destroy
     if User.where(admin_role: :true).count == 1 && self.admin_role == true
       throw(:abort)
