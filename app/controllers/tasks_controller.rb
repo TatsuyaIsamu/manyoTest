@@ -3,14 +3,19 @@ class TasksController < ApplicationController
   before_action :login_required
   # GET /tasks or /tasks.json
   def index
+
     if params[:task].present?
-      if params[:task][:status].present? || params[:task][:search].present?
+      if params[:task][:status].present? || params[:task][:search].present? || params[:task][:label_name]
         if params[:task][:status].present? && params[:task][:search].present?
           @tasks = current_user.tasks.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:status].present?
           @tasks = current_user.tasks.statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:search].present?
           @tasks = current_user.tasks.searching(params[:task][:search]).page(params[:page]).per(10)
+        elsif params[:task][:label_name].present?
+          @searching_task_id = Combination.where(label_id: params[:task][:label_name].to_i).pluck(:task_id)
+          @tasks = Task.where(id: @searching_task_id).page(params[:page]).per(10)
+          binding.irb
         end
       else
         if params[:sort_expired]
