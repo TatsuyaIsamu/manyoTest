@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :combination do
-    task { nil }
-    label { nil }
+    task 
+    label 
   end
 end

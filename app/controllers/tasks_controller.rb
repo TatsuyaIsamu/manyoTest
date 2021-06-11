@@ -15,7 +15,6 @@ class TasksController < ApplicationController
         elsif params[:task][:label_name].present?
           @searching_task_id = Combination.where(label_id: params[:task][:label_name].to_i).pluck(:task_id)
           @tasks = Task.where(id: @searching_task_id).page(params[:page]).per(10)
-          binding.irb
         end
       else
         if params[:sort_expired]
