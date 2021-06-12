@@ -15,6 +15,7 @@ FactoryBot.define do
     deadline { Date.today-1 }
     status { "未実施" }
     priority { 1 }
+    
    end
 
   
