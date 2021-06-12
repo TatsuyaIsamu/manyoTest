@@ -25,6 +25,7 @@
       <th >Title</th>
       <th>Content</th>
       <th>Status</th>
+      <th>labels</th>
       <th class="rspec_deadline_test"v><%= link_to tasks_path(sort_expired: "true") do %>Deadline<span class="glyphicon glyphicon-triangle-bottom"></span><% end %></th>
       <th class="rspec_priority_test"><%= link_to tasks_path(priority_expired: "true") do %>Priority<span class="glyphicon glyphicon-triangle-bottom"></span><% end %></th>
       <th colspan="3"></th>
@@ -36,9 +37,14 @@
 
       <% @tasks.each do |task| %>
         <tr>
-          <td class="rspec_order_test col-lg-2"><%= task.title  %></td>
-          <td class="rspec_sort_test col-lg-3"><%= task.content %></td>
+          <td class="rspec_order_test col-lg-1"><%= task.title  %></td>
+          <td class="rspec_sort_test col-lg-2"><%= task.content %></td>
           <td class="rspec_search_test col-lg-1"><%= task.status %></td>
+          <td class="col-lg-2">
+            <% task.labels.each do |label|%>
+              <%= label.label_name %>
+            <% end %>
+          </td>
           <td class="col-lg-2 "><%= task.deadline %></td>
           <td class="col-lg-1"><%= task.priority %></td>
           <td class= "col-lg-1"><span class="label label-info" ><%= link_to 'Show', task %></span></td>
