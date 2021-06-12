@@ -1,3 +1,5 @@
+<% label_lists = ["仕事", "友人関係", "家族関係", "生活関係"] %>
+
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
@@ -23,6 +25,11 @@
   <%= form.label :password %>
   <%= form.password_field :password, class: "form-control" %>
 </div>
+  <% for number in 0..label_lists.length-1 do%>
+    <%= form.fields_for :labels, user.labels.build do |m| %>
+      <%= m.hidden_field :label_name, value: label_lists[number] %>
+    <% end %>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

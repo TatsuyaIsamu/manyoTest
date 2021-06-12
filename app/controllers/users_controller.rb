@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+   
+   
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
@@ -64,6 +65,9 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {}).permit(:name, :email, :password)
+      params.fetch(:user, {}).permit(:name, :email, :password, labels_attributes:[:label_name])
+    end
+    def label_params
+      params.fetch(:user, {}).permit(labels_attributes:[:label_name])
     end
 end

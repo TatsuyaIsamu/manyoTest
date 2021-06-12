@@ -4,5 +4,7 @@ FactoryBot.define do
     email { "botText" }
     password { "botText" }
     admin_role { "false"}
+
+    
   end
 end

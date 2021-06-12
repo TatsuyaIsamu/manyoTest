@@ -3,14 +3,18 @@ class TasksController < ApplicationController
   before_action :login_required
   # GET /tasks or /tasks.json
   def index
+
     if params[:task].present?
-      if params[:task][:status].present? || params[:task][:search].present?
+      if params[:task][:status].present? || params[:task][:search].present? || params[:task][:label_name]
         if params[:task][:status].present? && params[:task][:search].present?
           @tasks = current_user.tasks.searching(params[:task][:search]).statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:status].present?
           @tasks = current_user.tasks.statusing(params[:task][:status]).page(params[:page]).per(10)
         elsif params[:task][:search].present?
           @tasks = current_user.tasks.searching(params[:task][:search]).page(params[:page]).per(10)
+        elsif params[:task][:label_name].present?
+          @searching_task_id = Combination.where(label_id: params[:task][:label_name].to_i).pluck(:task_id)
+          @tasks = Task.where(id: @searching_task_id).page(params[:page]).per(10)
         end
       else
         if params[:sort_expired]
@@ -39,6 +43,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+   
   end
 
   # GET /tasks/1/edit
@@ -48,9 +53,8 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = current_user.tasks.build(task_params)
-
     respond_to do |format|
-      if @task.save
+      if @task.save       
         format.html { redirect_to @task, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
@@ -90,8 +94,12 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content, :deadline, :status, :search, :priority)
+      params.require(:task).permit(:title, :content, :deadline, :status, :search, :priority, {label_ids:[]})
     end
+    # def lab_params
+    #   params.require(:task).permit()
+    # end
+    
 
     
 end

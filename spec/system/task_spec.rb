@@ -99,7 +99,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "検索キーワードを含むタスクで絞り込まれる" do
           visit tasks_path
           fill_in "task[search]", with: "test_first"
-          click_on "commit" 
+          click_on "検索する" 
           # タスクの検索欄に検索ワードを入力する (例: task)
           # 検索ボタンを押す
           expect(page).to have_content 'search_test_first'
@@ -109,7 +109,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "ステータスに完全一致するタスクが絞り込まれる" do
           visit tasks_path
           select "実施後", from: "task[status]"
-          click_on "commit"
+          click_on "検索する"
           post = all(".rspec_search_test")
           expect(post[0].text).to have_content "実施後"
           # ここに実装する
@@ -121,7 +121,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           visit tasks_path
           fill_in "task[search]", with: "test_second"
           select "実施中", from: "task[status]"
-          click_on "commit"
+          click_on "検索する"
           expect(page).to have_content "search_test_second"
           expect(page).to have_content "実施中"
           # ここに実装する

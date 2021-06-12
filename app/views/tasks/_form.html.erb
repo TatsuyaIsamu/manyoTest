@@ -27,7 +27,17 @@
       <%= form.label :priority%>
       <%= form.select :priority, [[:低, :低], [:中, :中], [:高, :高]] ,include_blank: "選択して下さい"%>
   </div>
-
+  <div class="form-group">
+    <%= form.label :label_name %>
+    <% Label.where(user_id: current_user.id).each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+      <%= label.label_name %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= link_to "新しくラベルを作成する", new_label_path %>
+    
+  </div>
 
   <div class="text-center">
     <%= form.submit "submit", class: "btn btn-primary" %>
