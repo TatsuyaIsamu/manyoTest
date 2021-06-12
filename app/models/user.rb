@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
-  # validates :email, uniqueness: true
+  validates :email, uniqueness: true
   before_destroy :admin_role_validation_destroy
   after_update :admin_role_validation_update
   has_many :labels, dependent: :destroy
