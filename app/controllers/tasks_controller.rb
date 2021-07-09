@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :login_required
   # GET /tasks or /tasks.json
   def index
-
+    
     if params[:task].present?
       if params[:task][:status].present? || params[:task][:search].present? || params[:task][:label_name]
         if params[:task][:status].present? && params[:task][:search].present?

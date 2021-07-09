@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'sessions/new'
   root "tasks#index"
+  post "tasks/index"
   resources :tasks
   resources :users, only: %i[show edit new create update]
   resources :sessions, only: %i[new create destroy]
